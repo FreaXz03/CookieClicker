@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">CookieClickerApp</string>
+    <string name="go">Weiter</string>
+    <string name="add">add a cookie</string>
+    <string name="counter">0 cookies</string>
+</resources>
