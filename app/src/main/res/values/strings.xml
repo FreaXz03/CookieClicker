@@ -5,5 +5,9 @@
     <string name="counter">0.0 cookies</string>
     <string name="cps">0 cps</string>
     <string name="addAutoClicker">add 0.1cps (0)</string>
+    <string name="btn_addBaker">add 0.5 cps (0)</string>
+    <string name="btn_addCursor">add 0.1 cps (0)</string>
     <string name="Shop">Shop</string>
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

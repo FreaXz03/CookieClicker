@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences prefs;
@@ -27,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String BAKER_PARAM = "bakerKey";
     public static final String FACTORY_PARAM = "factoryKey";
 
-    private float cookies = 0;
-    private Integer cursors = 0;
-    private int bakers = 0;
-    private int factories = 0;
+    public float cookies = 0;
+    public Integer cursors = 0;
+    public Integer bakers = 0;
+    public Integer factories = 0;
 
     private Button btn_add;
     private Button btn_shop;
@@ -39,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txv_cps;
 
     private boolean isBound = false;
+    private boolean taskRunning = false;
     private CookieService cookieService;
 
     @Override
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // update all fields with new content
         txv_cookies.setText(cookies + " cookies");
         btn_addAutoClicker.setText("add 0.1cps (" + cursors + ")");
-        txv_cps.setText((cursors.floatValue() / 10) + " cps");
+
 
         //cookie button -> adds Cookies
         btn_add.setOnClickListener(v -> {
@@ -79,37 +78,43 @@ public class MainActivity extends AppCompatActivity {
         btn_shop.setOnClickListener(v -> {
             Intent intent = new Intent(this, ShopActivity.class);
             intent.putExtra(ShopActivity.COOKIE_INTENT, this.cookies);
+            intent.putExtra(ShopActivity.CURSOR_INTENT, this.cursors);
+            intent.putExtra(ShopActivity.BAKER_INTENT, this.bakers);
+            intent.putExtra(ShopActivity.FACTORY_INTENT, this.factories);
             startActivity(intent);
         });
 
         //FOR TESTING
         //buy a cursor
         btn_addAutoClicker.setOnClickListener(v -> {
-            cursors++;
-            cookies = cookies - 10;
+            if (cookies >= 30) {
+                cursors++;
+                cookies = cookies - 30;
 
-            btn_addAutoClicker.setText("add 0.1cps (" + cursors + ")");
-            txv_cps.setText((cursors.floatValue() / 10) + " cps");
+                btn_addAutoClicker.setText("add 0.1cps (" + cursors + ")");
+                txv_cps.setText((cursors.floatValue() / 10) + " cps");
 
-            editor.putInt(CURSOR_PARAM, cursors).apply();
+                editor.putInt(CURSOR_PARAM, cursors).apply();
 
-            txv_cookies.setText(cookies + " cookies");
-            editor.putFloat(COOKIE_PARAM, cookies).apply();
+                txv_cookies.setText(cookies + " cookies");
+                editor.putFloat(COOKIE_PARAM, cookies).apply();
+            }
         });
     }
 
     public static float roundFloat(final float number, final int decimal) {
         float precision = 1.0F;
-        for (int i = 0; i < decimal; i++, precision *= 10);
-        return ((int) (number * precision + 0.5)  / precision);
+        for (int i = 0; i < decimal; i++, precision *= 10) ;
+        return ((int) (number * precision + 0.5) / precision);
     }
 
     Runnable runnable = new Runnable() {
         @Override
         public void run() {
             float newCookies = cookieService.cookieGeneration(cursors, bakers, factories);
-            cookies = roundFloat(cookies + newCookies,1);
+            cookies = roundFloat(cookies + newCookies, 1);
             txv_cookies.setText(cookies + " cookies");
+            txv_cps.setText(newCookies + " cps");
         }
     };
 
@@ -122,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void doTask() {
+        taskRunning = true;
         Timer timer = new Timer("Timer");
         TimerTask task = new TimerTask() {
             public void run() {
@@ -144,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         // bind the Service via Intent
         Intent bindCookieServiceIntent = new Intent(this, CookieService.class);
         bindService(bindCookieServiceIntent, connection, Context.BIND_AUTO_CREATE);
+
     }
 
     private ServiceConnection connection = new ServiceConnection() {
@@ -152,13 +159,18 @@ public class MainActivity extends AppCompatActivity {
             CookieService.CookieBinder binder = (CookieService.CookieBinder) iBinder;
             cookieService = binder.getService();
             isBound = true;
-            doTask();
+            if (!taskRunning) {
+                doTask();
+            }
+
         }
+
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
             isBound = false;
         }
     };
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -166,5 +178,37 @@ public class MainActivity extends AppCompatActivity {
         unbindService(connection);
         isBound = false;
         handler.removeCallbacks(runnable);
+    }
+
+    public float getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(float cookies) {
+        this.cookies = cookies;
+    }
+
+    public Integer getCursors() {
+        return cursors;
+    }
+
+    public void setCursors(Integer cursors) {
+        this.cursors = cursors;
+    }
+
+    public Integer getBakers() {
+        return bakers;
+    }
+
+    public void setBakers(Integer bakers) {
+        this.bakers = bakers;
+    }
+
+    public Integer getFactories() {
+        return factories;
+    }
+
+    public void setFactories(Integer factories) {
+        this.factories = factories;
     }
 }

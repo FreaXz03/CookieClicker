@@ -17,8 +17,13 @@ public class ShopActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
+        super.onCreate(savedInstanceState);
+
+        androidx.fragment.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout_cursor, new CursorFragment());
+        ft.replace(R.id.frameLayout_baker, new BakerFragment());
+        ft.commit();
 
         txv_cookies = findViewById(R.id.cookies);
         createView();
@@ -36,5 +41,4 @@ public class ShopActivity extends AppCompatActivity {
         super.onStart();
 
     }
-
 }
