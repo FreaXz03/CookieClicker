@@ -10,7 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CookieClicker">
 
+        <service
+            android:name=".CookieService"
+            android:enabled="true"
+            android:exported="true" />
 
+        <activity android:name=".ShopActivity" />
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

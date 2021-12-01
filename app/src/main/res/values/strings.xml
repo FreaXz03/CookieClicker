@@ -2,7 +2,8 @@
     <string name="app_name">CookieClickerApp</string>
     <string name="go">Weiter</string>
     <string name="add">add a cookie</string>
-    <string name="counter">0 cookies</string>
-    <string name="addAutoClicker">add 1cps</string>
+    <string name="counter">0.0 cookies</string>
+    <string name="cps">0 cps</string>
+    <string name="addAutoClicker">add 0.1cps (0)</string>
     <string name="Shop">Shop</string>
 </resources>
