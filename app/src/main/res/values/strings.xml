@@ -3,4 +3,6 @@
     <string name="go">Weiter</string>
     <string name="add">add a cookie</string>
     <string name="counter">0 cookies</string>
+    <string name="addAutoClicker">add 1cps</string>
+    <string name="Shop">Shop</string>
 </resources>

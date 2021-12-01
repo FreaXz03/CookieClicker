@@ -1,6 +1,7 @@
 package ch.nc.fm.cookieclicker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
@@ -16,7 +17,10 @@ public class MainActivity extends AppCompatActivity {
     private int cookies = 0;
 
     private Button btn_add;
+    private Button btn_shop;
     private TextView txv;
+
+
 
 
     @Override
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = prefs.edit();
 
         btn_add = findViewById(R.id.btn_add);
+        btn_shop = findViewById(R.id.btn_shop);
         txv = findViewById(R.id.tx);
 
         cookies = prefs.getInt(COOKIE_PARAM, 0);
@@ -38,5 +43,14 @@ public class MainActivity extends AppCompatActivity {
             txv.setText(cookies + " cookies");
             editor.putInt(COOKIE_PARAM, cookies).apply();
         });
+
+        btn_shop.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ShopActivity.class);
+            intent.putExtra(ShopActivity.COOKIE_INTENT, cookies);
+            startActivity(intent);
+        });
+
     }
+
+
 }
