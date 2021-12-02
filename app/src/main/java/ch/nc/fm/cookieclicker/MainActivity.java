@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public static Integer bakers = 0;
     public static Integer factories = 0;
 
-    private Button btn_add;
+    private ImageButton btn_add;
     private Button btn_shop;
     private Button btn_score;
     private TextView txv_cookies;
