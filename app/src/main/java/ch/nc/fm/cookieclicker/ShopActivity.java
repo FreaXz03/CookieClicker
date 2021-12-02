@@ -2,6 +2,7 @@ package ch.nc.fm.cookieclicker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +22,8 @@ public class ShopActivity extends AppCompatActivity {
     public Integer bakers;
     public Integer factories;
 
+    Button btn_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_shop);
@@ -31,8 +34,15 @@ public class ShopActivity extends AppCompatActivity {
         cursors = intentGetter.getIntExtra(CURSOR_INTENT, 0);
         factories = intentGetter.getIntExtra(FACTORY_INTENT, 0);
 
+        btn_back = findViewById(R.id.back);
+
         txv_cookies = findViewById(R.id.cookies);
         createView();
+
+        btn_back.setOnClickListener(v -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void createView() {
