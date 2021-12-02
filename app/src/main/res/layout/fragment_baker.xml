@@ -4,12 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/border_bottom"
-    tools:context=".CursorFragment">
+    tools:context=".fragments.CursorFragment">
 
     <Button
         android:id="@+id/btn_addBaker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_addBaker" />
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginRight="20dp"
+        android:text="@string/buy" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tx_itemBaker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/itemCursor"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tx_itemBakerCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="Cost: 150 cookies"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tx_itemBakerOwned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:text="Owned: 0"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 </FrameLayout>

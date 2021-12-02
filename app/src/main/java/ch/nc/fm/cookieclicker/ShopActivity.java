@@ -6,6 +6,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import ch.nc.fm.cookieclicker.fragments.BakerFragment;
+import ch.nc.fm.cookieclicker.fragments.CursorFragment;
+import ch.nc.fm.cookieclicker.fragments.FactoryFragment;
+
 public class ShopActivity extends AppCompatActivity {
     public static final String COOKIE_INTENT = "cookies";
     public static final String CURSOR_INTENT = "cursors";
@@ -13,32 +17,44 @@ public class ShopActivity extends AppCompatActivity {
     public static final String FACTORY_INTENT = "factories";
 
     private TextView txv_cookies;
-    private float cookies;
+    public Integer cursors;
+    public Integer bakers;
+    public Integer factories;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_shop);
         super.onCreate(savedInstanceState);
 
-        androidx.fragment.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frameLayout_cursor, new CursorFragment());
-        ft.replace(R.id.frameLayout_baker, new BakerFragment());
-        ft.commit();
+        Intent intentGetter = getIntent();
+        bakers = intentGetter.getIntExtra(BAKER_INTENT, 0);
+        cursors = intentGetter.getIntExtra(CURSOR_INTENT, 0);
+        factories = intentGetter.getIntExtra(FACTORY_INTENT, 0);
 
         txv_cookies = findViewById(R.id.cookies);
         createView();
     }
 
     private void createView() {
-        Intent intentGetter = getIntent();
-        cookies = intentGetter.getFloatExtra(COOKIE_INTENT, 0);
+        Bundle bundle = new Bundle();
+        bundle.putInt(CURSOR_INTENT, cursors);
+        bundle.putInt(BAKER_INTENT, bakers);
+        bundle.putInt(FACTORY_INTENT, factories);
 
-        txv_cookies.setText(cookies + " cookies");
-    }
+        CursorFragment cursorFragment = new CursorFragment();
+        BakerFragment bakerFragment = new BakerFragment();
+        FactoryFragment factoryFragment = new FactoryFragment();
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+        androidx.fragment.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.frameLayout_cursor, cursorFragment);
+        ft.replace(R.id.frameLayout_baker, bakerFragment);
+        ft.replace(R.id.frameLayout_factory, factoryFragment);
+        ft.commit();
 
+        cursorFragment.setArguments(bundle);
+        bakerFragment.setArguments(bundle);
+        factoryFragment.setArguments(bundle);
+
+        txv_cookies.setText(MainActivity.cookies + " cookies");
     }
 }

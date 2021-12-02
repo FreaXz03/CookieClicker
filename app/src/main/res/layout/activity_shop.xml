@@ -24,10 +24,11 @@
                 android:id="@+id/cookies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="190dp"
-                android:layout_marginTop="4dp"
+                android:layout_gravity="end"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
                 android:text="0 cookies"
-                android:textSize="40sp" />
+                android:textSize="25sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -44,15 +45,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginTop="10dp">
-
                 </FrameLayout>
 
                 <FrameLayout
                     android:id="@+id/frameLayout_baker"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="10dp" >
+                    android:layout_height="100dp">
+                </FrameLayout>
 
+                <FrameLayout
+                    android:id="@+id/frameLayout_factory"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
                 </FrameLayout>
 
 

@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ch.nc.fm.cookieclicker.services.CookieService;
+
 public class MainActivity extends AppCompatActivity {
     SharedPreferences prefs;
     private Handler handler = new Handler();
@@ -25,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String BAKER_PARAM = "bakerKey";
     public static final String FACTORY_PARAM = "factoryKey";
 
-    public float cookies = 0;
-    public Integer cursors = 0;
-    public Integer bakers = 0;
-    public Integer factories = 0;
+    public static float cookies = 0;
+    public static Integer cursors = 0;
+    public static Integer bakers = 0;
+    public static Integer factories = 0;
 
     private Button btn_add;
     private Button btn_shop;
-    private Button btn_addAutoClicker;
+    private Button btn_score;
     private TextView txv_cookies;
     private TextView txv_cps;
 
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // find all TextViews and Buttons
         btn_add = findViewById(R.id.btn_add);
         btn_shop = findViewById(R.id.btn_shop);
-        btn_addAutoClicker = findViewById(R.id.btn_addAutoClicker);
+        btn_score = findViewById(R.id.btn_score);
         txv_cookies = findViewById(R.id.tx_cookies);
         txv_cps = findViewById(R.id.tx_cps);
 
@@ -64,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
 
         // update all fields with new content
         txv_cookies.setText(cookies + " cookies");
-        btn_addAutoClicker.setText("add 0.1cps (" + cursors + ")");
-
 
         //cookie button -> adds Cookies
         btn_add.setOnClickListener(v -> {
@@ -84,21 +84,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //FOR TESTING
-        //buy a cursor
-        btn_addAutoClicker.setOnClickListener(v -> {
-            if (cookies >= 30) {
-                cursors++;
-                cookies = cookies - 30;
-
-                btn_addAutoClicker.setText("add 0.1cps (" + cursors + ")");
-                txv_cps.setText((cursors.floatValue() / 10) + " cps");
-
-                editor.putInt(CURSOR_PARAM, cursors).apply();
-
-                txv_cookies.setText(cookies + " cookies");
-                editor.putFloat(COOKIE_PARAM, cookies).apply();
-            }
+        btn_score.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ScoreActivity.class);
+            intent.putExtra(ShopActivity.COOKIE_INTENT, this.cookies);
+            startActivity(intent);
         });
     }
 
@@ -162,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
             if (!taskRunning) {
                 doTask();
             }
-
         }
 
         @Override

@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border_bottomtop"
-    tools:context=".fragments.CursorFragment">
-
-
+    android:background="@drawable/border_bottom"
+    tools:context=".fragments.FactoryFragment">
 
 
     <Button
-        android:id="@+id/btn_addCursor"
+        android:id="@+id/btn_addFactory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|center_vertical"
@@ -23,7 +21,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tx_itemCursor"
+            android:id="@+id/tx_itemFactory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -32,16 +30,16 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
         <TextView
-            android:id="@+id/tx_itemCursorCost"
+            android:id="@+id/tx_itemFactoryCost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:text="Cost: 30 cookies"
+            android:text="Cost: 300 cookies"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tx_itemCursorOwned"
+            android:id="@+id/tx_itemFactoryOwned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
@@ -54,7 +52,5 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-
 
 </FrameLayout>

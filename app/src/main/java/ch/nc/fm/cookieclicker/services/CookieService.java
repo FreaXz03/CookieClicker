@@ -1,4 +1,4 @@
-package ch.nc.fm.cookieclicker;
+package ch.nc.fm.cookieclicker.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -22,8 +22,8 @@ public class CookieService extends Service {
     }
 
     public float cookieGeneration(Integer cursorAmount, Integer bakerAmount, Integer factoryAmount) {
-        float newlyGeneratedCookies = 0;
-        newlyGeneratedCookies = (cursorAmount.floatValue() / 10) + (bakerAmount.floatValue() / 5) + (factoryAmount.floatValue());
+        float newlyGeneratedCookies;
+        newlyGeneratedCookies = (cursorAmount.floatValue() / 10) + (bakerAmount.floatValue() / 2) + (factoryAmount.floatValue());
 
         return newlyGeneratedCookies;
     }
